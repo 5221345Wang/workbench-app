@@ -923,7 +923,18 @@
     </div>
 
     <script>
-        const appData = {
+        // 从 JSON 文件加载数据
+        let appData = {};
+        
+        async function loadData() {
+            try {
+                const response = await fetch('data.json?t=' + Date.now());
+                appData = await response.json();
+                init();
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                // 使用默认数据
+                appData = {
             bossTasks: [
                 { id: 'b1', name: '申请可灵AI API Key', type: 'urgent', deadline: '4月8日', desc: '用于视频生成功能' },
                 { id: 'b2', name: '确认抖音发布方案', type: 'urgent', deadline: '4月8日', desc: '选择手动或自动方案' },
@@ -1100,7 +1111,11 @@
             document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
         }
         
-        init();
+        // 启动 - 先加载数据
+        loadData();
+        
+        // 每30秒自动刷新数据
+        setInterval(loadData, 30000);
     </script>
 </body>
 </html>
