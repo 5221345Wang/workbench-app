@@ -3,267 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#1a1a2e">
     <title>副总工作台</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <link rel="manifest" href="manifest.json">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg-primary: #0f0f1a;
-            --bg-secondary: #1a1a2e;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --accent-blue: #00d4ff;
-            --accent-purple: #a855f7;
-            --accent-pink: #ec4899;
-            --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --accent-red: #ef4444;
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --text-muted: rgba(255, 255, 255, 0.5);
-        }
-        
         body {
-            font-family: 'Noto Sans SC', -apple-system, sans-serif;
-            background: var(--bg-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            color: #fff;
             min-height: 100vh;
-            color: var(--text-primary);
-            overflow-x: hidden;
+            padding: 20px;
+            padding-top: 60px;
         }
-        
-        /* 动态背景 */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .bg-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 20s infinite ease-in-out;
-        }
-        
-        .bg-blob-1 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            top: -100px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-        
-        .bg-blob-2 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            bottom: 20%;
-            left: -100px;
-            animation-delay: -5s;
-        }
-        
-        .bg-blob-3 {
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-orange));
-            top: 40%;
-            right: -50px;
-            animation-delay: -10s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -30px) scale(1.1); }
-            50% { transform: translate(-20px, 20px) scale(0.9); }
-            75% { transform: translate(20px, 30px) scale(1.05); }
-        }
-        
-        /* 网格背景 */
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        /* 主容器 */
-        .container {
-            position: relative;
-            z-index: 2;
-            padding-bottom: 100px;
-        }
-        
-        /* 顶部 */
         .header {
-            padding: 60px 24px 40px;
-            position: relative;
+            margin-bottom: 30px;
         }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        
-        .header-left {
-            flex: 1;
-        }
-        
         .greeting {
             font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
+            color: rgba(255,255,255,0.6);
         }
-        
-        .header-title {
+        .title {
             font-size: 32px;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, var(--accent-blue) 100%);
+            margin-top: 8px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        
-        .header-date {
+        .date {
             font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
         }
-        
-        .header-date::before {
-            content: '📅';
-            font-size: 12px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
         }
-        
-        .ai-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.4);
-        }
-        
-        .ai-avatar::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink), var(--accent-blue));
-            z-index: -1;
-            animation: rotate 3s linear infinite;
-        }
-        
-        .ai-avatar::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            z-index: 1;
-        }
-        
-        .ai-avatar span {
-            position: relative;
-            z-index: 2;
-        }
-        
-        @keyframes rotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        
-        .status-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 20px;
-            padding: 10px 16px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 24px;
-            width: fit-content;
-        }
-        
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.2); }
-        }
-        
-        .status-text {
-            font-size: 13px;
-            color: var(--accent-green);
-            font-weight: 500;
-        }
-        
-        /* 主内容 */
-        .main-content {
-            padding: 0 20px;
-        }
-        
-        /* 统计卡片 - 横向滚动 */
-        .stats-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 4px 4px 16px;
-            margin: 0 -4px;
-            scrollbar-width: none;
-        }
-        
-        .stats-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .stat-card {
-            min-width: 110px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
-            padding: 20px 16px;
-            text-align: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
         }
-        
-        .stat-card::before {
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -271,153 +58,30 @@
             right: 0;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-        
-        .stat-card.blue { --accent: var(--accent-blue); }
-        .stat-card.purple { --accent: var(--accent-purple); }
-        .stat-card.orange { --accent: var(--accent-orange); }
-        .stat-card.pink { --accent: var(--accent-pink); }
-        
-        .stat-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-        
-        .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        
-        .stat-label {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        
-        /* 板块标题 */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 24px 0 16px;
-        }
-        
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .section-title-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-        
-        .view-all {
-            font-size: 13px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        /* 功能卡片网格 */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer !important;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
-            z-index: 10;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255,255,255,0.15);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        
-        .feature-card:active {
-            transform: scale(0.96);
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--glow), transparent);
             opacity: 0.5;
         }
-        
-        .feature-card.blue { --glow: var(--accent-blue); }
-        .feature-card.green { --glow: var(--accent-green); }
-        .feature-card.orange { --glow: var(--accent-orange); }
-        .feature-card.pink { --glow: var(--accent-pink); }
-        
-        .feature-icon-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 12px;
-            position: relative;
+        .card:hover, .card:active {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
         }
-        
-        .feature-icon-wrap::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 14px;
-            background: var(--glow);
-            opacity: 0.15;
+        .card.blue { --accent: #00d4ff; }
+        .card.green { --accent: #10b981; }
+        .card.orange { --accent: #f59e0b; }
+        .card.pink { --accent: #ec4899; }
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
         }
-        
-        .feature-card.blue .feature-icon-wrap { color: var(--accent-blue); }
-        .feature-card.green .feature-icon-wrap { color: var(--accent-green); }
-        .feature-card.orange .feature-icon-wrap { color: var(--accent-orange); }
-        .feature-card.pink .feature-icon-wrap { color: var(--accent-pink); }
-        
-        .feature-name {
-            font-size: 15px;
+        .card-title {
+            font-size: 17px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
-        
-        .feature-desc {
-            font-size: 12px;
-            color: var(--text-muted);
+        .card-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
         }
-        
-        .feature-badge {
+        .badge {
             position: absolute;
             top: 16px;
             right: 16px;
@@ -425,292 +89,67 @@
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
+            background: rgba(255,255,255,0.1);
         }
-        
-        .feature-badge.blue { background: rgba(0, 212, 255, 0.15); color: var(--accent-blue); }
-        .feature-badge.green { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
-        .feature-badge.orange { background: rgba(245, 158, 11, 0.15); color: var(--accent-orange); }
-        .feature-badge.pink { background: rgba(236, 72, 153, 0.15); color: var(--accent-pink); }
-        
-        /* 老板任务区 */
-        .boss-section {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 24px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        
-        .boss-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-red), var(--accent-orange), transparent);
-        }
-        
-        .boss-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        
-        .boss-title-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .boss-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        
-        .boss-title {
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
-        .boss-subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        
-        .urgent-count {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 20px;
-        }
-        
-        .urgent-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-red);
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        .urgent-text {
-            font-size: 12px;
-            color: var(--accent-red);
-            font-weight: 600;
-        }
-        
-        .boss-task-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .boss-task-item {
-            display: flex;
-            align-items: center;
-            padding: 14px 16px;
-            border-radius: 16px;
-            background: rgba(15, 15, 26, 0.5);
-            border: 1px solid rgba(255,255,255,0.04);
-            transition: all 0.2s;
-        }
-        
-        .boss-task-item:hover {
-            background: rgba(15, 15, 26, 0.8);
-            transform: translateX(4px);
-        }
-        
-        .task-priority {
-            width: 3px;
-            height: 40px;
-            border-radius: 2px;
-            margin-right: 14px;
-        }
-        
-        .task-priority.urgent { background: linear-gradient(180deg, var(--accent-red), var(--accent-orange)); }
-        .task-priority.normal { background: linear-gradient(180deg, var(--accent-green), var(--accent-blue)); }
-        
-        .boss-task-content {
-            flex: 1;
-        }
-        
-        .boss-task-name {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .boss-task-desc {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        
-        .boss-task-meta {
-            text-align: right;
-        }
-        
-        .task-deadline {
-            font-size: 11px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .task-type-tag {
-            display: inline-block;
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 6px;
-            margin-top: 6px;
-            font-weight: 500;
-        }
-        
-        .task-type-tag.urgent { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
-        .task-type-tag.normal { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
-        
-        /* 底部导航 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 26, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0 24px;
-            z-index: 100;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            padding: 8px 20px;
-            color: var(--text-muted);
-            font-size: 11px;
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .nav-item.active {
-            color: var(--accent-blue);
-        }
-        
-        .nav-item.active::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-blue);
-        }
-        
-        .nav-icon {
-            font-size: 22px;
-        }
-        
-        /* 详情页 */
-        .detail-page {
+        .page {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--bg-primary);
-            z-index: 200;
+            background: #0f0f1a;
+            z-index: 1000;
             overflow-y: auto;
+            animation: slideIn 0.3s ease;
         }
-        
-        .detail-page.active {
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .page.active {
             display: block;
-            animation: slideUp 0.3s ease;
         }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .detail-header {
+        .page-header {
             padding: 60px 20px 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             position: sticky;
             top: 0;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, transparent 100%);
+            background: linear-gradient(180deg, #0f0f1a 0%, transparent 100%);
             z-index: 10;
         }
-        
         .back-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .back-btn:hover {
-            background: rgba(255,255,255,0.05);
-        }
-        
-        .detail-title {
             font-size: 20px;
+            cursor: pointer;
+        }
+        .page-title {
+            font-size: 22px;
             font-weight: 600;
         }
-        
-        .detail-content {
-            padding: 0 20px 100px;
+        .page-content {
+            padding: 0 20px 40px;
         }
-        
-        /* 列表项 */
-        .list-item {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
+        .task-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
-            padding: 16px;
+            padding: 18px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 14px;
-            transition: all 0.2s;
         }
-        
-        .list-item:active {
-            transform: scale(0.98);
-        }
-        
-        .item-checkbox {
+        .task-checkbox {
             width: 24px;
             height: 24px;
             border: 2px solid rgba(255,255,255,0.2);
@@ -720,419 +159,347 @@
             justify-content: center;
             font-size: 12px;
             flex-shrink: 0;
-            transition: all 0.2s;
         }
-        
-        .item-checkbox.done {
-            background: var(--accent-green);
-            border-color: var(--accent-green);
+        .task-checkbox.done {
+            background: #10b981;
+            border-color: #10b981;
         }
-        
-        .item-info {
+        .task-info {
             flex: 1;
         }
-        
-        .item-name {
+        .task-name {
             font-size: 15px;
             font-weight: 500;
             margin-bottom: 4px;
         }
-        
-        .item-name.done {
+        .task-name.done {
             text-decoration: line-through;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.5);
         }
-        
-        .item-meta {
+        .task-meta {
             font-size: 12px;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.4);
         }
-        
-        .item-tag {
+        .task-tag {
             font-size: 10px;
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
         }
-        
-        .item-tag.high { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
-        .item-tag.medium { background: rgba(245, 158, 11, 0.15); color: var(--accent-orange); }
-        .item-tag.low { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+        .task-tag.high { background: rgba(239,68,68,0.15); color: #ef4444; }
+        .task-tag.medium { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .task-tag.low { background: rgba(16,185,129,0.15); color: #10b981; }
+        .boss-section {
+            margin-top: 32px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .boss-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--priority-color, #10b981);
+        }
+        .boss-card.urgent { --priority-color: #ef4444; }
+        .boss-card.normal { --priority-color: #10b981; }
+        .boss-task-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .boss-task-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+        .boss-task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .deadline {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
+        .priority-tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .priority-tag.urgent { background: rgba(239,68,68,0.15); color: #ef4444; }
+        .priority-tag.normal { background: rgba(16,185,129,0.15); color: #10b981; }
     </style>
 </head>
 <body>
-    <!-- 背景动画 -->
-    <div class="bg-animation">
-        <div class="bg-blob bg-blob-1"></div>
-        <div class="bg-blob bg-blob-2"></div>
-        <div class="bg-blob bg-blob-3"></div>
+    <!-- 首页 -->
+    <div id="home">
+        <div class="header">
+            <div class="greeting">下午好，老板</div>
+            <div class="title">工作台</div>
+            <div class="date" id="currentDate">2026年4月7日 周二</div>
+        </div>
+        
+        <div class="grid">
+            <div class="card blue" onclick="showPage('tasks')">
+                <span class="badge" style="color: #00d4ff;">4</span>
+                <div class="card-icon">📋</div>
+                <div class="card-title">今日任务</div>
+                <div class="card-desc">我的待办事项</div>
+            </div>
+            
+            <div class="card green" onclick="showPage('tomorrow')">
+                <span class="badge" style="color: #10b981;">3</span>
+                <div class="card-icon">📅</div>
+                <div class="card-title">明日计划</div>
+                <div class="card-desc">提前规划安排</div>
+            </div>
+            
+            <div class="card orange" onclick="showPage('skills')">
+                <span class="badge" style="color: #f59e0b;">11/12</span>
+                <div class="card-icon">🛠️</div>
+                <div class="card-title">技能库</div>
+                <div class="card-desc">已装备技能</div>
+            </div>
+            
+            <div class="card pink" onclick="showPage('apis')">
+                <span class="badge" style="color: #ec4899;">2</span>
+                <div class="card-icon">🔑</div>
+                <div class="card-title">API配置</div>
+                <div class="card-desc">Key管理</div>
+            </div>
+        </div>
+        
+        <div class="boss-section">
+            <div class="section-title">
+                <span>👔</span>
+                <span>需要你完成</span>
+            </div>
+            
+            <div class="boss-card urgent">
+                <div class="boss-task-title">申请可灵AI API Key</div>
+                <div class="boss-task-desc">用于视频生成功能</div>
+                <div class="boss-task-meta">
+                    <span class="deadline">⏰ 4月8日</span>
+                    <span class="priority-tag urgent">紧急</span>
+                </div>
+            </div>
+            
+            <div class="boss-card urgent">
+                <div class="boss-task-title">确认抖音发布方案</div>
+                <div class="boss-task-desc">选择手动或自动方案</div>
+                <div class="boss-task-meta">
+                    <span class="deadline">⏰ 4月8日</span>
+                    <span class="priority-tag urgent">紧急</span>
+                </div>
+            </div>
+            
+            <div class="boss-card normal">
+                <div class="boss-task-title">提供直播产品资料</div>
+                <div class="boss-task-desc">用于脚本生成</div>
+                <div class="boss-task-meta">
+                    <span class="deadline">⏰ 4月10日</span>
+                    <span class="priority-tag normal">一般</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="grid-overlay"></div>
     
-    <!-- 主容器 -->
-    <div class="container">
-        <!-- 主页 -->
-        <div id="homePage">
-            <!-- 顶部 -->
-            <div class="header">
-                <div class="header-content">
-                    <div class="header-left">
-                        <div class="greeting">下午好，老板</div>
-                        <div class="header-title">工作台</div>
-                        <div class="header-date" id="headerDate">2026年4月7日 周一</div>
-                        <div class="status-bar">
-                            <div class="status-dot"></div>
-                            <span class="status-text">AI运行正常</span>
-                        </div>
-                    </div>
-                    <div class="ai-avatar"><span>🤖</span></div>
-                </div>
-            </div>
-            
-            <!-- 主内容 -->
-            <div class="main-content">
-                <!-- 统计卡片 -->
-                <div class="stats-scroll">
-                    <div class="stat-card blue">
-                        <div class="stat-icon">📋</div>
-                        <div class="stat-number" id="todayTaskCount">1</div>
-                        <div class="stat-label">待办任务</div>
-                    </div>
-                    <div class="stat-card purple">
-                        <div class="stat-icon">🛠️</div>
-                        <div class="stat-number" id="skillReadyCount">11</div>
-                        <div class="stat-label">技能就绪</div>
-                    </div>
-                    <div class="stat-card orange">
-                        <div class="stat-icon">🔑</div>
-                        <div class="stat-number" id="pendingApiCount">2</div>
-                        <div class="stat-label">待配置</div>
-                    </div>
-                    <div class="stat-card pink">
-                        <div class="stat-icon">⚡</div>
-                        <div class="stat-number" id="urgentCount">2</div>
-                        <div class="stat-label">紧急事项</div>
-                    </div>
-                </div>
-                
-                <!-- 功能板块 -->
-                <div class="section-header">
-                    <div class="section-title">
-                        <div class="section-title-icon">🎯</div>
-                        <span>功能中心</span>
-                    </div>
-                    <div class="view-all">查看全部 →</div>
-                </div>
-                
-                <div class="feature-grid">
-                    <div class="feature-card blue" onclick="showPage('tasksPage'); return false;">
-                        <span class="feature-badge blue" id="taskBadge">1</span>
-                        <div class="feature-icon-wrap">📋</div>
-                        <div class="feature-name">今日任务</div>
-                        <div class="feature-desc">我的待办事项</div>
-                    </div>
-                    
-                    <div class="feature-card green" onclick="showPage('tomorrowPage'); return false;">
-                        <span class="feature-badge green" id="planBadge">3</span>
-                        <div class="feature-icon-wrap">📅</div>
-                        <div class="feature-name">明日计划</div>
-                        <div class="feature-desc">提前规划安排</div>
-                    </div>
-                    
-                    <div class="feature-card orange" onclick="showPage('skillsPage'); return false;">
-                        <span class="feature-badge orange" id="skillBadge">11/12</span>
-                        <div class="feature-icon-wrap">🛠️</div>
-                        <div class="feature-name">技能库</div>
-                        <div class="feature-desc">已装备技能</div>
-                    </div>
-                    
-                    <div class="feature-card pink" onclick="showPage('apisPage'); return false;">
-                        <span class="feature-badge pink" id="apiBadge">2</span>
-                        <div class="feature-icon-wrap">🔑</div>
-                        <div class="feature-name">API配置</div>
-                        <div class="feature-desc">Key管理</div>
-                    </div>
-                </div>
-                
-                <!-- 老板任务 -->
-                <div class="section-header">
-                    <div class="section-title">
-                        <div class="section-title-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">👤</div>
-                        <span>需要你完成</span>
-                    </div>
-                </div>
-                
-                <div class="boss-section">
-                    <div class="boss-header">
-                        <div class="boss-title-wrap">
-                            <div class="boss-avatar">👔</div>
-                            <div>
-                                <div class="boss-title">老板任务</div>
-                                <div class="boss-subtitle">等待你的行动</div>
-                            </div>
-                        </div>
-                        <div class="urgent-count">
-                            <div class="urgent-dot"></div>
-                            <span class="urgent-text" id="bossUrgentBadge">2 紧急</span>
-                        </div>
-                    </div>
-                    <div class="boss-task-list" id="bossTaskList"></div>
-                </div>
-            </div>
+    <!-- 今日任务页 -->
+    <div class="page" id="tasks">
+        <div class="page-header">
+            <div class="back-btn" onclick="showPage('home')">←</div>
+            <div class="page-title">今日任务</div>
         </div>
-        
-        <!-- 详情页 -->
-        <div class="detail-page" id="tasksPage">
-            <div class="detail-header">
-                <div class="back-btn" onclick="backToHome()">←</div>
-                <div class="detail-title">今日任务</div>
+        <div class="page-content">
+            <div class="task-item">
+                <div class="task-checkbox done">✓</div>
+                <div class="task-info">
+                    <div class="task-name done">装备所有新技能到技能库</div>
+                    <div class="task-meta">已完成</div>
+                </div>
+                <span class="task-tag high">高</span>
             </div>
-            <div class="detail-content" id="tasksList"></div>
-        </div>
-        
-        <div class="detail-page" id="tomorrowPage">
-            <div class="detail-header">
-                <div class="back-btn" onclick="backToHome()">←</div>
-                <div class="detail-title">明日计划</div>
+            <div class="task-item">
+                <div class="task-checkbox done">✓</div>
+                <div class="task-info">
+                    <div class="task-name done">开发飞书工作台小组件</div>
+                    <div class="task-meta">已完成</div>
+                </div>
+                <span class="task-tag high">高</span>
             </div>
-            <div class="detail-content" id="tomorrowList"></div>
-        </div>
-        
-        <div class="detail-page" id="skillsPage">
-            <div class="detail-header">
-                <div class="back-btn" onclick="backToHome()">←</div>
-                <div class="detail-title">技能库</div>
+            <div class="task-item">
+                <div class="task-checkbox done">✓</div>
+                <div class="task-info">
+                    <div class="task-name done">美化工作台APP界面</div>
+                    <div class="task-meta">已完成</div>
+                </div>
+                <span class="task-tag high">高</span>
             </div>
-            <div class="detail-content" id="skillsList"></div>
-        </div>
-        
-        <div class="detail-page" id="apisPage">
-            <div class="detail-header">
-                <div class="back-btn" onclick="backToHome()">←</div>
-                <div class="detail-title">API配置</div>
-            </div>
-            <div class="detail-content" id="apisList"></div>
-        </div>
-        
-        <!-- 底部导航 -->
-        <div class="bottom-nav">
-            <div class="nav-item active">
-                <div class="nav-icon">🏠</div>
-                <span>首页</span>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">📊</div>
-                <span>数据</span>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">💬</div>
-                <span>消息</span>
-            </div>
-            <div class="nav-item">
-                <div class="nav-icon">👤</div>
-                <span>我的</span>
+            <div class="task-item">
+                <div class="task-checkbox done">✓</div>
+                <div class="task-info">
+                    <div class="task-name done">发布公众号文章（4月7日）</div>
+                    <div class="task-meta">《张雪WSBK夺冠》已发布</div>
+                </div>
+                <span class="task-tag high">高</span>
             </div>
         </div>
     </div>
-
+    
+    <!-- 明日计划页 -->
+    <div class="page" id="tomorrow">
+        <div class="page-header">
+            <div class="back-btn" onclick="showPage('home')">←</div>
+            <div class="page-title">明日计划</div>
+        </div>
+        <div class="page-content">
+            <div class="task-item">
+                <div class="task-checkbox"></div>
+                <div class="task-info">
+                    <div class="task-name">申请可灵AI API Key</div>
+                    <div class="task-meta">高优先级</div>
+                </div>
+                <span class="task-tag high">高</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox"></div>
+                <div class="task-info">
+                    <div class="task-name">批量发布测试视频到多平台</div>
+                    <div class="task-meta">高优先级</div>
+                </div>
+                <span class="task-tag high">高</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox"></div>
+                <div class="task-info">
+                    <div class="task-name">准备直播脚本模板</div>
+                    <div class="task-meta">中优先级</div>
+                </div>
+                <span class="task-tag medium">中</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 技能库页 -->
+    <div class="page" id="skills">
+        <div class="page-header">
+            <div class="back-btn" onclick="showPage('home')">←</div>
+            <div class="page-title">技能库</div>
+        </div>
+        <div class="page-content">
+            <div class="task-item">
+                <div class="task-checkbox" style="border: none; font-size: 20px;">🎬</div>
+                <div class="task-info">
+                    <div class="task-name">视频生成</div>
+                    <div class="task-meta">需API Key</div>
+                </div>
+                <span class="task-tag medium">待配置</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox done" style="border: none; font-size: 20px;">✂️</div>
+                <div class="task-info">
+                    <div class="task-name">短视频创作</div>
+                    <div class="task-meta">已装备</div>
+                </div>
+                <span class="task-tag low">已就绪</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox done" style="border: none; font-size: 20px;">🔍</div>
+                <div class="task-info">
+                    <div class="task-name">视频抓取</div>
+                    <div class="task-meta">已装备</div>
+                </div>
+                <span class="task-tag low">已就绪</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox done" style="border: none; font-size: 20px;">🚀</div>
+                <div class="task-info">
+                    <div class="task-name">多平台发布</div>
+                    <div class="task-meta">已装备</div>
+                </div>
+                <span class="task-tag low">已就绪</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox done" style="border: none; font-size: 20px;">📕</div>
+                <div class="task-info">
+                    <div class="task-name">小红书AI</div>
+                    <div class="task-meta">已装备</div>
+                </div>
+                <span class="task-tag low">已就绪</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox done" style="border: none; font-size: 20px;">📰</div>
+                <div class="task-info">
+                    <div class="task-name">公众号</div>
+                    <div class="task-meta">已装备</div>
+                </div>
+                <span class="task-tag low">已就绪</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- API配置页 -->
+    <div class="page" id="apis">
+        <div class="page-header">
+            <div class="back-btn" onclick="showPage('home')">←</div>
+            <div class="page-title">API配置</div>
+        </div>
+        <div class="page-content">
+            <div class="task-item">
+                <div class="task-checkbox done" style="border: none; font-size: 20px;">🔍</div>
+                <div class="task-info">
+                    <div class="task-name">Tavily搜索</div>
+                    <div class="task-meta">已配置</div>
+                </div>
+                <span class="task-tag low">已配置</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox" style="border: none; font-size: 20px;">🎬</div>
+                <div class="task-info">
+                    <div class="task-name">可灵AI</div>
+                    <div class="task-meta">需要配置API Key</div>
+                </div>
+                <span class="task-tag medium">待配置</span>
+            </div>
+            <div class="task-item">
+                <div class="task-checkbox" style="border: none; font-size: 20px;">✨</div>
+                <div class="task-info">
+                    <div class="task-name">即梦</div>
+                    <div class="task-meta">需要配置API Key</div>
+                </div>
+                <span class="task-tag medium">待配置</span>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        // 从 JSON 文件加载数据
-        let appData = {};
-        
-        async function loadData() {
-            try {
-                const response = await fetch('data.json?t=' + Date.now());
-                appData = await response.json();
-                init();
-            } catch (error) {
-                console.error('加载数据失败:', error);
-                // 使用默认数据
-                appData = {
-            bossTasks: [
-                { id: 'b1', name: '申请可灵AI API Key', type: 'urgent', deadline: '4月8日', desc: '用于视频生成功能' },
-                { id: 'b2', name: '确认抖音发布方案', type: 'urgent', deadline: '4月8日', desc: '选择手动或自动方案' },
-                { id: 'b3', name: '提供直播产品资料', type: 'normal', deadline: '4月10日', desc: '用于脚本生成' },
-                { id: 'b4', name: '测试工作台APP', type: 'normal', deadline: '4月9日', desc: '反馈使用体验' }
-            ],
-            todayTasks: [
-                { id: 1, name: '装备所有新技能到技能库', status: 'done', priority: 'high', eta: '已完成' },
-                { id: 2, name: '开发飞书工作台小组件', status: 'done', priority: 'high', eta: '已完成' },
-                { id: 3, name: '美化工作台APP界面', status: 'doing', priority: 'high', eta: '进行中' }
-            ],
-            tomorrowTasks: [
-                { id: 4, name: '申请可灵AI API Key', status: 'todo', priority: 'high', eta: '高优先级' },
-                { id: 5, name: '批量发布测试视频到多平台', status: 'todo', priority: 'high', eta: '高优先级' },
-                { id: 6, name: '准备直播脚本模板', status: 'todo', priority: 'medium', eta: '中优先级' }
-            ],
-            skills: [
-                { icon: '🎬', name: '视频生成', status: 'pending', desc: '需API Key' },
-                { icon: '✂️', name: '短视频创作', status: 'ready', desc: '已装备' },
-                { icon: '🔍', name: '视频抓取', status: 'ready', desc: '已装备' },
-                { icon: '🚀', name: '多平台发布', status: 'ready', desc: '已装备' },
-                { icon: '📕', name: '小红书AI', status: 'ready', desc: '已装备' },
-                { icon: '📕', name: '小红书MCP', status: 'ready', desc: '已装备' },
-                { icon: '📰', name: '公众号', status: 'ready', desc: '已装备' },
-                { icon: '📝', name: '脚本规划', status: 'ready', desc: '已装备' },
-                { icon: '🎙️', name: '直播助手', status: 'ready', desc: '已装备' },
-                { icon: '⏰', name: '定时任务', status: 'ready', desc: '已装备' },
-                { icon: '🧠', name: '自我改进', status: 'ready', desc: '已装备' }
-            ],
-            apis: [
-                { name: 'Tavily搜索', status: 'ready' },
-                { name: '可灵AI', status: 'pending' },
-                { name: '即梦', status: 'pending' }
-            ]
-        };
-        
-        function init() {
-            updateDate();
-            updateStats();
-            renderBossTasks();
-            renderTasks();
-            renderTomorrow();
-            renderSkills();
-            renderAPIs();
-        }
-        
-        function updateDate() {
-            const now = new Date();
-            const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-            document.getElementById('headerDate').textContent = 
-                `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${weekdays[now.getDay()]}`;
-        }
-        
-        function updateStats() {
-            const todoCount = appData.todayTasks.filter(t => t.status !== 'done').length;
-            const readyCount = appData.skills.filter(s => s.status === 'ready').length;
-            const pendingCount = appData.apis.filter(a => a.status === 'pending').length;
-            const urgentCount = appData.bossTasks.filter(t => t.type === 'urgent').length;
-            
-            document.getElementById('todayTaskCount').textContent = todoCount;
-            document.getElementById('skillReadyCount').textContent = readyCount;
-            document.getElementById('pendingApiCount').textContent = pendingCount;
-            document.getElementById('urgentCount').textContent = urgentCount;
-            
-            document.getElementById('taskBadge').textContent = todoCount;
-            document.getElementById('planBadge').textContent = '3';
-            document.getElementById('skillBadge').textContent = `${readyCount}/${appData.skills.length}`;
-            document.getElementById('apiBadge').textContent = pendingCount;
-            document.getElementById('bossUrgentBadge').textContent = `${urgentCount} 紧急`;
-        }
-        
-        function renderBossTasks() {
-            const container = document.getElementById('bossTaskList');
-            const sorted = [...appData.bossTasks].sort((a, b) => {
-                if (a.type === 'urgent' && b.type !== 'urgent') return -1;
-                if (a.type !== 'urgent' && b.type === 'urgent') return 1;
-                return 0;
-            });
-            
-            container.innerHTML = sorted.map(task => `
-                <div class="boss-task-item">
-                    <div class="task-priority ${task.type}"></div>
-                    <div class="boss-task-content">
-                        <div class="boss-task-name">${task.name}</div>
-                        <div class="boss-task-desc">${task.desc}</div>
-                    </div>
-                    <div class="boss-task-meta">
-                        <div class="task-deadline">⏰ ${task.deadline}</div>
-                        <span class="task-type-tag ${task.type}">${task.type === 'urgent' ? '紧急' : '一般'}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        function renderTasks() {
-            const container = document.getElementById('tasksList');
-            container.innerHTML = appData.todayTasks.map(task => `
-                <div class="list-item" onclick="toggleTask(${task.id})">
-                    <div class="item-checkbox ${task.status === 'done' ? 'done' : ''}">
-                        ${task.status === 'done' ? '✓' : ''}
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name ${task.status === 'done' ? 'done' : ''}">${task.name}</div>
-                        <div class="item-meta">${task.eta}</div>
-                    </div>
-                    <span class="item-tag ${task.priority}">${getPriorityText(task.priority)}</span>
-                </div>
-            `).join('');
-        }
-        
-        function renderTomorrow() {
-            const container = document.getElementById('tomorrowList');
-            container.innerHTML = appData.tomorrowTasks.map(task => `
-                <div class="list-item">
-                    <div class="item-checkbox"></div>
-                    <div class="item-info">
-                        <div class="item-name">${task.name}</div>
-                        <div class="item-meta">${task.eta}</div>
-                    </div>
-                    <span class="item-tag ${task.priority}">${getPriorityText(task.priority)}</span>
-                </div>
-            `).join('');
-        }
-        
-        function renderSkills() {
-            const container = document.getElementById('skillsList');
-            container.innerHTML = appData.skills.map(skill => `
-                <div class="list-item">
-                    <div class="item-checkbox ${skill.status === 'ready' ? 'done' : ''}" style="border: none; font-size: 24px;">
-                        ${skill.icon}
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${skill.name}</div>
-                        <div class="item-meta">${skill.desc}</div>
-                    </div>
-                    <span class="item-tag ${skill.status === 'ready' ? 'low' : 'medium'}">${skill.status === 'ready' ? '已就绪' : '待配置'}</span>
-                </div>
-            `).join('');
-        }
-        
-        function renderAPIs() {
-            const container = document.getElementById('apisList');
-            container.innerHTML = appData.apis.map(api => `
-                <div class="list-item">
-                    <div class="item-checkbox" style="border: none; font-size: 20px;">🔑</div>
-                    <div class="item-info">
-                        <div class="item-name">${api.name}</div>
-                        <div class="item-meta">${api.status === 'ready' ? '已配置' : '需要配置API Key'}</div>
-                    </div>
-                    <span class="item-tag ${api.status === 'ready' ? 'low' : 'medium'}">${api.status === 'ready' ? '已配置' : '待配置'}</span>
-                </div>
-            `).join('');
-        }
-        
-        function getPriorityText(p) {
-            return { high: '高', medium: '中', low: '低' }[p] || p;
-        }
-        
-        function toggleTask(id) {
-            const task = appData.todayTasks.find(t => t.id === id);
-            if (task) {
-                task.status = task.status === 'done' ? 'todo' : 'done';
-                renderTasks();
-                updateStats();
-            }
-        }
-        
         function showPage(pageId) {
-            alert('打开页面: ' + pageId);
-            document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
-            const page = document.getElementById(pageId);
-            if (page) {
-                page.classList.add('active');
+            // 隐藏所有页面
+            document.getElementById('home').style.display = 'none';
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // 显示目标页面
+            if (pageId === 'home') {
+                document.getElementById('home').style.display = 'block';
+            } else {
+                document.getElementById(pageId).classList.add('active');
             }
         }
         
-        function backToHome() {
-            document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
-        }
-        
-        // 启动 - 加载数据
-        loadData();
-        
-        // 每30秒自动刷新数据
-        setInterval(loadData, 30000);
+        // 设置当前日期
+        const now = new Date();
+        const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+        document.getElementById('currentDate').textContent = 
+            `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${weekdays[now.getDay()]}`;
     </script>
 </body>
 </html>
