@@ -1,0 +1,33 @@
+name: Test Toutiao Publisher
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        pip install playwright
+        playwright install chromium
+    
+    - name: Test import
+      run: |
+        python -c "from toutiao_publisher import ToutiaoPublisher; print('✅ 导入成功')"
+    
+    - name: Check code syntax
+      run: |
+        python -m py_compile toutiao_publisher.py
+        python -m py_compile publish_zhangxue.py
+        echo "✅ 语法检查通过"
