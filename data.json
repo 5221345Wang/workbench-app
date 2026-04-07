@@ -3,7 +3,8 @@
   "todayTasks": [
     { "id": 1, "name": "装备所有新技能到技能库", "status": "done", "priority": "high", "eta": "已完成" },
     { "id": 2, "name": "开发飞书工作台小组件", "status": "done", "priority": "high", "eta": "已完成" },
-    { "id": 3, "name": "美化工作台APP界面", "status": "done", "priority": "high", "eta": "已完成" }
+    { "id": 3, "name": "美化工作台APP界面", "status": "done", "priority": "high", "eta": "已完成" },
+    { "id": 4, "name": "发布公众号文章（4月7日）", "status": "done", "priority": "high", "eta": "《张雪WSBK夺冠》已发布" }
   ],
   "dailyTasks": [
     { "id": "d1", "name": "发布公众号文章", "type": "daily", "deadline": "每天", "desc": "搜集热门话题→生成报告→撰写文章→发布" }
