@@ -46,6 +46,7 @@
             bottom: 0;
             z-index: 0;
             overflow: hidden;
+            pointer-events: none;
         }
         
         .bg-blob {
@@ -350,6 +351,7 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
+            z-index: 10;
         }
         
         .feature-card:hover {
@@ -1132,34 +1134,37 @@
             document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
         }
         
-        // 启动 - 先加载数据
-        loadData();
-        
-        // 每30秒自动刷新数据
-        setInterval(loadData, 30000);
-        
-        // 绑定功能卡片点击事件
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, binding events...');
+        // 绑定功能卡片点击事件 - 先绑定，确保可点击
+        function bindCardEvents() {
+            console.log('Binding card events...');
             const cards = document.querySelectorAll('.feature-card');
             console.log('Found cards:', cards.length);
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
+            cards.forEach((card, index) => {
+                console.log('Binding card', index);
+                card.onclick = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     const page = this.getAttribute('data-page');
                     console.log('Card clicked:', page);
                     alert('点击了: ' + page);
                     openDetail(page);
-                });
-                card.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.96)';
-                });
-                card.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                });
+                    return false;
+                };
             });
-        });
+        }
+        
+        // 页面加载完成后立即绑定
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bindCardEvents);
+        } else {
+            bindCardEvents();
+        }
+        
+        // 启动 - 加载数据
+        loadData();
+        
+        // 每30秒自动刷新数据
+        setInterval(loadData, 30000);
     </script>
 </body>
 </html>
