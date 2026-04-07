@@ -343,9 +343,13 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
+            cursor: pointer !important;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
         
         .feature-card:hover {
@@ -819,28 +823,28 @@
                 </div>
                 
                 <div class="feature-grid">
-                    <div class="feature-card blue" onclick="openDetail('tasks')" style="cursor: pointer; -webkit-tap-highlight-color: transparent;">
+                    <div class="feature-card blue" data-page="tasks">
                         <span class="feature-badge blue" id="taskBadge">1</span>
                         <div class="feature-icon-wrap">📋</div>
                         <div class="feature-name">今日任务</div>
                         <div class="feature-desc">我的待办事项</div>
                     </div>
                     
-                    <div class="feature-card green" onclick="openDetail('tomorrow')" style="cursor: pointer; -webkit-tap-highlight-color: transparent;">
+                    <div class="feature-card green" data-page="tomorrow">
                         <span class="feature-badge green" id="planBadge">3</span>
                         <div class="feature-icon-wrap">📅</div>
                         <div class="feature-name">明日计划</div>
                         <div class="feature-desc">提前规划安排</div>
                     </div>
                     
-                    <div class="feature-card orange" onclick="openDetail('skills')" style="cursor: pointer; -webkit-tap-highlight-color: transparent;">
+                    <div class="feature-card orange" data-page="skills">
                         <span class="feature-badge orange" id="skillBadge">11/12</span>
                         <div class="feature-icon-wrap">🛠️</div>
                         <div class="feature-name">技能库</div>
                         <div class="feature-desc">已装备技能</div>
                     </div>
                     
-                    <div class="feature-card pink" onclick="openDetail('apis')" style="cursor: pointer; -webkit-tap-highlight-color: transparent;">
+                    <div class="feature-card pink" data-page="apis">
                         <span class="feature-badge pink" id="apiBadge">2</span>
                         <div class="feature-icon-wrap">🔑</div>
                         <div class="feature-name">API配置</div>
@@ -1133,6 +1137,29 @@
         
         // 每30秒自动刷新数据
         setInterval(loadData, 30000);
+        
+        // 绑定功能卡片点击事件
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, binding events...');
+            const cards = document.querySelectorAll('.feature-card');
+            console.log('Found cards:', cards.length);
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const page = this.getAttribute('data-page');
+                    console.log('Card clicked:', page);
+                    alert('点击了: ' + page);
+                    openDetail(page);
+                });
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.96)';
+                });
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
     </script>
 </body>
 </html>
