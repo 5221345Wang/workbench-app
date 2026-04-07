@@ -237,6 +237,60 @@
         }
         .priority-tag.urgent { background: rgba(239,68,68,0.15); color: #ef4444; }
         .priority-tag.normal { background: rgba(16,185,129,0.15); color: #10b981; }
+        
+        /* 每日例行工作 */
+        .daily-section {
+            margin-top: 32px;
+        }
+        .daily-card {
+            background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(168,85,247,0.1) 100%);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .daily-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #00d4ff, #a855f7);
+        }
+        .daily-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .daily-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .daily-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .daily-status {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .daily-status.pending { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .daily-status.done { background: rgba(16,185,129,0.15); color: #10b981; }
+        .daily-time {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
     </style>
 </head>
 <body>
@@ -275,6 +329,42 @@
                 <div class="card-icon">🔑</div>
                 <div class="card-title">API配置</div>
                 <div class="card-desc">Key管理</div>
+            </div>
+        </div>
+        
+        <!-- 每日例行工作 -->
+        <div class="daily-section">
+            <div class="section-title">
+                <span>📅</span>
+                <span>每日例行工作</span>
+            </div>
+            
+            <div class="daily-card" onclick="showPage('dailyWechat')">
+                <div class="daily-title">
+                    <span>📰</span>
+                    <span>微信公众号文章发布</span>
+                </div>
+                <div class="daily-desc">
+                    每日流程：搜集热门话题 → 生成报告 → 撰写文章 → 发布到公众号
+                </div>
+                <div class="daily-meta">
+                    <span class="daily-status done">今日已完成</span>
+                    <span class="daily-time">⏰ 每天 19:00 前</span>
+                </div>
+            </div>
+            
+            <div class="daily-card">
+                <div class="daily-title">
+                    <span>📊</span>
+                    <span>工作台状态更新</span>
+                </div>
+                <div class="daily-desc">
+                    更新任务进度、技能状态、API配置情况
+                </div>
+                <div class="daily-meta">
+                    <span class="daily-status done">今日已完成</span>
+                    <span class="daily-time">⏰ 实时更新</span>
+                </div>
             </div>
         </div>
         
@@ -477,6 +567,53 @@
                     <div class="task-meta">需要配置API Key</div>
                 </div>
                 <span class="task-tag medium">待配置</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 每日公众号工作详情页 -->
+    <div class="page" id="dailyWechat">
+        <div class="page-header">
+            <div class="back-btn" onclick="showPage('home')">←</div>
+            <div class="page-title">公众号文章发布</div>
+        </div>
+        <div class="page-content">
+            <div class="daily-card" style="margin-bottom: 20px;">
+                <div class="daily-title">📋 工作流程</div>
+                <div class="daily-desc" style="margin-bottom: 0;">
+                    1. 搜集当日热门话题（Tavily搜索）<br>
+                    2. 生成热点分析报告<br>
+                    3. 撰写公众号文章<br>
+                    4. 发布到公众号草稿箱<br>
+                    5. 老板审核后群发
+                </div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 24px;">
+                <span>📰</span>
+                <span>今日文章</span>
+            </div>
+            
+            <div class="task-item">
+                <div class="task-checkbox done">✓</div>
+                <div class="task-info">
+                    <div class="task-name">《4万块国产赛车击败进口品牌！张雪WSBK夺冠背后的创业传奇》</div>
+                    <div class="task-meta">已发布到草稿箱</div>
+                </div>
+                <span class="task-tag low">已完成</span>
+            </div>
+            
+            <div class="section-title" style="margin-top: 24px;">
+                <span>📊</span>
+                <span>发布历史</span>
+            </div>
+            
+            <div class="task-item">
+                <div class="task-info">
+                    <div class="task-name">2026-04-07 张雪WSBK夺冠</div>
+                    <div class="task-meta">阅读量：待统计</div>
+                </div>
+                <span class="task-tag low">已发布</span>
             </div>
         </div>
     </div>
