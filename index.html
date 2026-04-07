@@ -825,28 +825,28 @@
                 </div>
                 
                 <div class="feature-grid">
-                    <div class="feature-card blue" data-page="tasks">
+                    <div class="feature-card blue" onclick="showPage('tasksPage'); return false;">
                         <span class="feature-badge blue" id="taskBadge">1</span>
                         <div class="feature-icon-wrap">📋</div>
                         <div class="feature-name">今日任务</div>
                         <div class="feature-desc">我的待办事项</div>
                     </div>
                     
-                    <div class="feature-card green" data-page="tomorrow">
+                    <div class="feature-card green" onclick="showPage('tomorrowPage'); return false;">
                         <span class="feature-badge green" id="planBadge">3</span>
                         <div class="feature-icon-wrap">📅</div>
                         <div class="feature-name">明日计划</div>
                         <div class="feature-desc">提前规划安排</div>
                     </div>
                     
-                    <div class="feature-card orange" data-page="skills">
+                    <div class="feature-card orange" onclick="showPage('skillsPage'); return false;">
                         <span class="feature-badge orange" id="skillBadge">11/12</span>
                         <div class="feature-icon-wrap">🛠️</div>
                         <div class="feature-name">技能库</div>
                         <div class="feature-desc">已装备技能</div>
                     </div>
                     
-                    <div class="feature-card pink" data-page="apis">
+                    <div class="feature-card pink" onclick="showPage('apisPage'); return false;">
                         <span class="feature-badge pink" id="apiBadge">2</span>
                         <div class="feature-icon-wrap">🔑</div>
                         <div class="feature-name">API配置</div>
@@ -1115,49 +1115,17 @@
             }
         }
         
-        function openDetail(type) {
-            console.log('Opening detail:', type);
-            alert('正在打开: ' + type);
+        function showPage(pageId) {
+            alert('打开页面: ' + pageId);
             document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
-            const page = document.getElementById(type + 'Page');
+            const page = document.getElementById(pageId);
             if (page) {
                 page.classList.add('active');
-                page.style.display = 'block';
-                console.log('Page activated:', type + 'Page');
-            } else {
-                console.error('Page not found:', type + 'Page');
-                alert('页面未找到: ' + type + 'Page');
             }
         }
         
         function backToHome() {
             document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
-        }
-        
-        // 绑定功能卡片点击事件 - 先绑定，确保可点击
-        function bindCardEvents() {
-            console.log('Binding card events...');
-            const cards = document.querySelectorAll('.feature-card');
-            console.log('Found cards:', cards.length);
-            cards.forEach((card, index) => {
-                console.log('Binding card', index);
-                card.onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const page = this.getAttribute('data-page');
-                    console.log('Card clicked:', page);
-                    alert('点击了: ' + page);
-                    openDetail(page);
-                    return false;
-                };
-            });
-        }
-        
-        // 页面加载完成后立即绑定
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', bindCardEvents);
-        } else {
-            bindCardEvents();
         }
         
         // 启动 - 加载数据
