@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a2e">
     <title>副总工作台</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="manifest" href="manifest.json">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
@@ -1108,13 +1111,16 @@
         
         function openDetail(type) {
             console.log('Opening detail:', type);
+            alert('正在打开: ' + type);
             document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
             const page = document.getElementById(type + 'Page');
             if (page) {
                 page.classList.add('active');
+                page.style.display = 'block';
                 console.log('Page activated:', type + 'Page');
             } else {
                 console.error('Page not found:', type + 'Page');
+                alert('页面未找到: ' + type + 'Page');
             }
         }
         
