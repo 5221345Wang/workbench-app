@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击测试</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.2);
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0,255,0,0.1);
+            border-radius: 8px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2>点击测试页面</h2>
+    <div class="card" data-page="tasks">今日任务</div>
+    <div class="card" data-page="skills">技能库</div>
+    <div id="output">点击上方卡片测试...</div>
+    
+    <script>
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                const page = this.getAttribute('data-page');
+                document.getElementById('output').innerHTML += '<br>点击了: ' + page;
+                alert('点击成功: ' + page);
+            });
+        });
+    </script>
+</body>
+</html>
