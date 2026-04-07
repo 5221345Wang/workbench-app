@@ -6,6 +6,7 @@
     { "id": 3, "name": "美化工作台APP界面", "status": "done", "priority": "high", "eta": "已完成" }
   ],
   "tomorrowTasks": [
+    { "id": 7, "name": "整理APP开发文档到飞书", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 4, "name": "申请可灵AI API Key", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 5, "name": "批量发布测试视频到多平台", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 6, "name": "准备直播脚本模板", "status": "todo", "priority": "medium", "eta": "中优先级" }
