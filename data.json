@@ -1,12 +1,16 @@
 {
-  "lastUpdated": "2026-04-07T17:25:00",
+  "lastUpdated": "2026-04-07T18:16:00",
   "todayTasks": [
     { "id": 1, "name": "装备所有新技能到技能库", "status": "done", "priority": "high", "eta": "已完成" },
     { "id": 2, "name": "开发飞书工作台小组件", "status": "done", "priority": "high", "eta": "已完成" },
     { "id": 3, "name": "美化工作台APP界面", "status": "done", "priority": "high", "eta": "已完成" }
   ],
+  "dailyTasks": [
+    { "id": "d1", "name": "发布公众号文章", "type": "daily", "deadline": "每天", "desc": "搜集热门话题→生成报告→撰写文章→发布" }
+  ],
   "tomorrowTasks": [
-    { "id": 7, "name": "整理APP开发文档到飞书", "status": "todo", "priority": "high", "eta": "高优先级" },
+    { "id": 7, "name": "发布公众号文章（4月8日）", "status": "todo", "priority": "high", "eta": "每日必做" },
+    { "id": 8, "name": "整理APP开发文档到飞书", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 4, "name": "申请可灵AI API Key", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 5, "name": "批量发布测试视频到多平台", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 6, "name": "准备直播脚本模板", "status": "todo", "priority": "medium", "eta": "中优先级" }
