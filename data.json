@@ -14,7 +14,8 @@
     { "id": 8, "name": "整理APP开发文档到飞书", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 4, "name": "申请可灵AI API Key", "status": "todo", "priority": "high", "eta": "高优先级" },
     { "id": 5, "name": "批量发布测试视频到多平台", "status": "todo", "priority": "high", "eta": "高优先级" },
-    { "id": 6, "name": "准备直播脚本模板", "status": "todo", "priority": "medium", "eta": "中优先级" }
+    { "id": 6, "name": "准备直播脚本模板", "status": "todo", "priority": "medium", "eta": "中优先级" },
+    { "id": 9, "name": "解决头条发布环境问题", "status": "todo", "priority": "high", "eta": "需Python环境或远程机器" }
   ],
   "bossTasks": [
     { "id": "b1", "name": "申请可灵AI API Key", "type": "urgent", "deadline": "4月8日", "desc": "用于视频生成功能" },
@@ -30,6 +31,7 @@
     { "icon": "📕", "name": "小红书AI", "status": "ready", "desc": "已装备" },
     { "icon": "📕", "name": "小红书MCP", "status": "ready", "desc": "已装备" },
     { "icon": "📰", "name": "公众号", "status": "ready", "desc": "已装备" },
+    { "icon": "📰", "name": "头条发布", "status": "ready", "desc": "代码完成，待环境" },
     { "icon": "📝", "name": "脚本规划", "status": "ready", "desc": "已装备" },
     { "icon": "🎙️", "name": "直播助手", "status": "ready", "desc": "已装备" },
     { "icon": "⏰", "name": "定时任务", "status": "ready", "desc": "已装备" },
