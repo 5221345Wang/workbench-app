@@ -7,156 +7,137 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            padding: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
         }
         .header {
+            margin-bottom: 24px;
+        }
+        .greeting {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .date {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .card-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+        .badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-        }
-        .date {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-        .status {
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 12px;
-            background: #e6f7e6;
-            color: #52c41a;
-        }
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .count {
-            font-size: 11px;
-            color: #999;
-            background: #f5f5f5;
-            padding: 2px 6px;
-            border-radius: 10px;
-        }
-        .task-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
         }
         .task-item {
             display: flex;
             align-items: center;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 8px;
         }
         .task-checkbox {
-            width: 16px;
-            height: 16px;
-            border: 2px solid #ddd;
-            border-radius: 3px;
-            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 12px;
+            flex-shrink: 0;
         }
         .task-checkbox.done {
-            background: #52c41a;
-            border-color: #52c41a;
-            color: white;
+            background: #10b981;
+            border-color: #10b981;
+        }
+        .task-name {
+            flex: 1;
+            font-size: 14px;
         }
         .task-name.done {
             text-decoration: line-through;
-            color: #999;
+            color: rgba(255,255,255,0.5);
         }
         .task-meta {
-            font-size: 11px;
-            color: #999;
-            margin-left: auto;
-        }
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .skill-item {
-            text-align: center;
-            padding: 8px 4px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            font-size: 11px;
-        }
-        .skill-icon {
-            font-size: 20px;
-            margin-bottom: 2px;
-        }
-        .skill-name {
-            color: #666;
-        }
-        .api-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .api-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            padding: 6px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .api-item:last-child {
-            border-bottom: none;
-        }
-        .api-status {
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .api-status.ready {
-            background: #e6f7e6;
-            color: #52c41a;
-        }
-        .api-status.pending {
-            background: #fff7e6;
-            color: #faad14;
-        }
-        .loading {
-            text-align: center;
-            color: #999;
             font-size: 12px;
-            padding: 20px;
+            color: rgba(255,255,255,0.5);
         }
-        .error {
+        .loading, .error {
             text-align: center;
-            color: #ff4d4f;
-            font-size: 12px;
-            padding: 20px;
+            padding: 40px;
+            color: rgba(255,255,255,0.5);
         }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
     <div class="header">
-        <div>
-            <div id="greeting" style="font-size: 12px; color: #666; margin-bottom: 2px;">加载中...</div>
-            <div class="date" id="currentDate">加载中...</div>
-        </div>
-        <div class="status">运行中</div>
+        <div class="greeting" id="greeting">加载中...</div>
+        <div class="title">工作台</div>
+        <div class="date" id="currentDate">加载中...</div>
     </div>
 
     <div id="content">
@@ -164,156 +145,105 @@
     </div>
 
     <script>
-        // 从 data.json 加载数据
+        // 加载数据
         async function loadData() {
             try {
-                // 添加时间戳防止缓存
                 const response = await fetch(`data.json?t=${Date.now()}`);
-                if (!response.ok) {
-                    throw new Error('加载数据失败');
-                }
+                if (!response.ok) throw new Error('加载失败');
                 const data = await response.json();
-                renderPage(data);
+                render(data);
             } catch (error) {
-                console.error('加载数据失败:', error);
                 document.getElementById('content').innerHTML = 
                     '<div class="error">数据加载失败，请刷新重试</div>';
             }
         }
 
         // 渲染页面
-        function renderPage(data) {
+        function render(data) {
             const now = new Date();
-            const currentHour = now.getHours();
-            
-            // 更新问候语
             const hour = now.getHours();
+            
+            // 问候语
             let greeting = '早上好';
-            if (hour >= 11 && hour < 13) {
-                greeting = '中午好';
-            } else if (hour >= 13 && hour < 18) {
-                greeting = '下午好';
-            } else if (hour >= 18) {
-                greeting = '晚上好';
-            }
+            if (hour >= 11 && hour < 13) greeting = '中午好';
+            else if (hour >= 13 && hour < 18) greeting = '下午好';
+            else if (hour >= 18) greeting = '晚上好';
             document.getElementById('greeting').textContent = `${greeting}，老板`;
             
-            // 更新日期
+            // 日期
             document.getElementById('currentDate').textContent = 
-                `${data.date.replace(/-/g, '月').replace(/月/, '月').replace(/2026年/, '').replace(/-/, '日')} ${data.weekday}`;
+                `${data.date} ${data.weekday}`;
             
-            // 渲染每日例行工作
-            const routineHtml = data.routine.map((item, index) => {
-                const isDone = item.done || (index === 0 && currentHour >= 11) || (index === 1 && currentHour >= 18);
-                return `
-                    <div class="task-item">
-                        <div class="task-checkbox ${isDone ? 'done' : ''}">${isDone ? '✓' : ''}</div>
-                        <span class="task-name">${item.name}</span>
-                        <span class="task-meta">${item.time}</span>
-                    </div>
-                `;
-            }).join('');
-
-            // 渲染今日任务
-            const todayTasksHtml = data.todayTasks.map(task => `
-                <div class="task-item">
-                    <div class="task-checkbox ${task.status === 'done' ? 'done' : ''}">${task.status === 'done' ? '✓' : ''}</div>
-                    <span class="task-name ${task.status === 'done' ? 'done' : ''}">${task.name}</span>
-                    <span class="task-meta">${task.meta}</span>
-                </div>
-            `).join('');
-
-            // 渲染明日计划
-            const tomorrowTasksHtml = data.tomorrowTasks.map(task => `
-                <div class="task-item">
-                    <div class="task-checkbox"></div>
-                    <span class="task-name">${task.name}</span>
-                    <span class="task-meta">${task.priority}优先级</span>
-                </div>
-            `).join('');
-
-            // 渲染技能库
-            const skillsHtml = data.skills.list.map(skill => `
-                <div class="skill-item">
-                    <div class="skill-icon">${skill.icon}</div>
-                    <div class="skill-name">${skill.name}</div>
-                </div>
-            `).join('');
-
-            // 渲染API配置
-            const apisHtml = data.apis.map(api => `
-                <div class="api-item">
-                    <span>${api.name}</span>
-                    <span class="api-status ${api.status}">${api.status === 'ready' ? '已配置' : '待配置'}</span>
-                </div>
-            `).join('');
-
-            // 组合所有内容
+            // 计算任务数量
+            const todayTotal = data.todayTasks.length;
+            const todayDone = data.todayTasks.filter(t => t.status === 'done').length;
+            const tomorrowTotal = data.tomorrowTasks.length;
+            
+            // 渲染内容
             document.getElementById('content').innerHTML = `
-                <div class="card">
-                    <div class="card-title">
+                <div class="grid">
+                    <div class="card" onclick="showDetail('today')">
+                        <div class="badge">${todayDone}/${todayTotal}</div>
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">今日任务</div>
+                        <div class="card-desc">已完成 ${todayDone} 项</div>
+                    </div>
+                    <div class="card" onclick="showDetail('tomorrow')">
+                        <div class="badge">${tomorrowTotal}</div>
+                        <div class="card-icon">📅</div>
+                        <div class="card-title">明日计划</div>
+                        <div class="card-desc">提前规划安排</div>
+                    </div>
+                    <div class="card">
+                        <div class="badge">${data.skills.ready}/${data.skills.total}</div>
+                        <div class="card-icon">🛠️</div>
+                        <div class="card-title">技能库</div>
+                        <div class="card-desc">已装备技能</div>
+                    </div>
+                    <div class="card">
+                        <div class="badge">${data.apis.filter(a => a.status === 'ready').length}</div>
+                        <div class="card-icon">🔑</div>
+                        <div class="card-title">API配置</div>
+                        <div class="card-desc">Key管理</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">
                         <span>🔄 每日例行工作</span>
-                        <span class="count">${data.routine.length}次/天</span>
+                        <span style="font-size: 12px; color: rgba(255,255,255,0.5);">${data.routine.length}次/天</span>
                     </div>
-                    <div class="task-list">
-                        ${routineHtml}
-                    </div>
+                    ${data.routine.map(item => {
+                        const isDone = item.done || (item.time === '11:00' && hour >= 11) || (item.time === '18:00' && hour >= 18);
+                        return `
+                            <div class="task-item">
+                                <div class="task-checkbox ${isDone ? 'done' : ''}">${isDone ? '✓' : ''}</div>
+                                <div class="task-name ${isDone ? 'done' : ''}">${item.name}</div>
+                                <div class="task-meta">${item.time}</div>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
-
-                <div class="card">
-                    <div class="card-title">
+                
+                <div class="section" id="todaySection">
+                    <div class="section-title">
                         <span>📋 今日任务</span>
-                        <span class="count">${data.todayTasks.length}项</span>
+                        <span style="font-size: 12px; color: rgba(255,255,255,0.5);">${todayTotal}项</span>
                     </div>
-                    <div class="task-list">
-                        ${todayTasksHtml}
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <span>📅 明日计划</span>
-                        <span class="count">${data.tomorrowTasks.length}项</span>
-                    </div>
-                    <div class="task-list">
-                        ${tomorrowTasksHtml}
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <span>🛠️ 技能库</span>
-                        <span class="count">${data.skills.ready}/${data.skills.total} 就绪</span>
-                    </div>
-                    <div class="skill-grid">
-                        ${skillsHtml}
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <span>🔑 API配置</span>
-                    </div>
-                    <div class="api-list">
-                        ${apisHtml}
-                    </div>
+                    ${data.todayTasks.map(task => `
+                        <div class="task-item">
+                            <div class="task-checkbox ${task.status === 'done' ? 'done' : ''}">${task.status === 'done' ? '✓' : ''}</div>
+                            <div class="task-name ${task.status === 'done' ? 'done' : ''}">${task.name}</div>
+                            <div class="task-meta">${task.meta}</div>
+                        </div>
+                    `).join('')}
                 </div>
             `;
         }
 
-        // 页面加载时执行
+        // 初始化
         loadData();
-        
-        // 每30秒自动刷新数据
-        setInterval(loadData, 30000);
-        
-        // 每分钟检查一次是否需要更新日期（跨天时）
-        setInterval(() => {
-            const now = new Date();
-            if (now.getHours() === 0 && now.getMinutes() === 0) {
-                loadData();
-            }
-        }, 60000);
+        setInterval(loadData, 30000); // 30秒刷新
     </script>
 </body>
 </html>
