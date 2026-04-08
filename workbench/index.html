@@ -136,162 +136,169 @@
             background: #fff7e6;
             color: #faad14;
         }
+        .loading {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            padding: 20px;
+        }
+        .error {
+            text-align: center;
+            color: #ff4d4f;
+            font-size: 12px;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="date" id="currentDate">4月7日 周一</div>
+        <div class="date" id="currentDate">加载中...</div>
         <div class="status">运行中</div>
     </div>
 
-    <div class="card">
-        <div class="card-title">
-            <span>🔄 每日例行工作</span>
-            <span class="count">2次/天</span>
-        </div>
-        <div class="task-list">
-            <div class="task-item">
-                <div class="task-checkbox" id="routine-am"></div>
-                <span class="task-name">📰 公众号文章发布</span>
-                <span class="task-meta">11:00</span>
-            </div>
-            <div class="task-item">
-                <div class="task-checkbox" id="routine-pm"></div>
-                <span class="task-name">📰 公众号文章发布</span>
-                <span class="task-meta">18:00</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">
-            <span>📋 今日任务</span>
-            <span class="count" id="taskCount">3项</span>
-        </div>
-        <div class="task-list" id="todayTasks">
-            <div class="task-item">
-                <div class="task-checkbox done">✓</div>
-                <span class="task-name done">装备所有新技能到技能库</span>
-                <span class="task-meta">已完成</span>
-            </div>
-            <div class="task-item">
-                <div class="task-checkbox"></div>
-                <span class="task-name">开发飞书工作台小组件</span>
-                <span class="task-meta">进行中</span>
-            </div>
-            <div class="task-item">
-                <div class="task-checkbox"></div>
-                <span class="task-name">测试小红书MCP发布功能</span>
-                <span class="task-meta">待开始</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">
-            <span>📅 明日计划</span>
-            <span class="count">3项</span>
-        </div>
-        <div class="task-list">
-            <div class="task-item">
-                <div class="task-checkbox"></div>
-                <span class="task-name">申请可灵AI API Key</span>
-                <span class="task-meta">高优先级</span>
-            </div>
-            <div class="task-item">
-                <div class="task-checkbox"></div>
-                <span class="task-name">批量发布测试视频到多平台</span>
-                <span class="task-meta">高优先级</span>
-            </div>
-            <div class="task-item">
-                <div class="task-checkbox"></div>
-                <span class="task-name">准备直播脚本模板</span>
-                <span class="task-meta">中优先级</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">
-            <span>🛠️ 技能库</span>
-            <span class="count">11/12 就绪</span>
-        </div>
-        <div class="skill-grid">
-            <div class="skill-item">
-                <div class="skill-icon">🎬</div>
-                <div class="skill-name">视频生成</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">✂️</div>
-                <div class="skill-name">短视频</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">🔍</div>
-                <div class="skill-name">视频抓取</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">🚀</div>
-                <div class="skill-name">多平台发布</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">📕</div>
-                <div class="skill-name">小红书</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">📰</div>
-                <div class="skill-name">公众号</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">📝</div>
-                <div class="skill-name">脚本规划</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">🎙️</div>
-                <div class="skill-name">直播助手</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">
-            <span>🔑 API配置</span>
-        </div>
-        <div class="api-list">
-            <div class="api-item">
-                <span>Tavily搜索</span>
-                <span class="api-status ready">已配置</span>
-            </div>
-            <div class="api-item">
-                <span>可灵AI</span>
-                <span class="api-status pending">待配置</span>
-            </div>
-            <div class="api-item">
-                <span>即梦</span>
-                <span class="api-status pending">待配置</span>
-            </div>
-        </div>
+    <div id="content">
+        <div class="loading">正在加载数据...</div>
     </div>
 
     <script>
-        // 更新日期
-        const now = new Date();
-        const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-        document.getElementById('currentDate').textContent = 
-            `${now.getMonth() + 1}月${now.getDate()}日 ${weekdays[now.getDay()]}`;
-        
-        // 更新每日例行工作完成状态
-        const hour = now.getHours();
-        const amCheckbox = document.getElementById('routine-am');
-        const pmCheckbox = document.getElementById('routine-pm');
-        
-        if (hour >= 11) {
-            amCheckbox.classList.add('done');
-            amCheckbox.textContent = '✓';
+        // 从 data.json 加载数据
+        async function loadData() {
+            try {
+                // 添加时间戳防止缓存
+                const response = await fetch(`data.json?t=${Date.now()}`);
+                if (!response.ok) {
+                    throw new Error('加载数据失败');
+                }
+                const data = await response.json();
+                renderPage(data);
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('content').innerHTML = 
+                    '<div class="error">数据加载失败，请刷新重试</div>';
+            }
         }
-        if (hour >= 18) {
-            pmCheckbox.classList.add('done');
-            pmCheckbox.textContent = '✓';
+
+        // 渲染页面
+        function renderPage(data) {
+            const now = new Date();
+            const currentHour = now.getHours();
+            
+            // 更新日期
+            document.getElementById('currentDate').textContent = 
+                `${data.date.replace(/-/g, '月').replace(/月/, '月').replace(/2026年/, '').replace(/-/, '日')} ${data.weekday}`;
+            
+            // 渲染每日例行工作
+            const routineHtml = data.routine.map((item, index) => {
+                const isDone = item.done || (index === 0 && currentHour >= 11) || (index === 1 && currentHour >= 18);
+                return `
+                    <div class="task-item">
+                        <div class="task-checkbox ${isDone ? 'done' : ''}">${isDone ? '✓' : ''}</div>
+                        <span class="task-name">${item.name}</span>
+                        <span class="task-meta">${item.time}</span>
+                    </div>
+                `;
+            }).join('');
+
+            // 渲染今日任务
+            const todayTasksHtml = data.todayTasks.map(task => `
+                <div class="task-item">
+                    <div class="task-checkbox ${task.status === 'done' ? 'done' : ''}">${task.status === 'done' ? '✓' : ''}</div>
+                    <span class="task-name ${task.status === 'done' ? 'done' : ''}">${task.name}</span>
+                    <span class="task-meta">${task.meta}</span>
+                </div>
+            `).join('');
+
+            // 渲染明日计划
+            const tomorrowTasksHtml = data.tomorrowTasks.map(task => `
+                <div class="task-item">
+                    <div class="task-checkbox"></div>
+                    <span class="task-name">${task.name}</span>
+                    <span class="task-meta">${task.priority}优先级</span>
+                </div>
+            `).join('');
+
+            // 渲染技能库
+            const skillsHtml = data.skills.list.map(skill => `
+                <div class="skill-item">
+                    <div class="skill-icon">${skill.icon}</div>
+                    <div class="skill-name">${skill.name}</div>
+                </div>
+            `).join('');
+
+            // 渲染API配置
+            const apisHtml = data.apis.map(api => `
+                <div class="api-item">
+                    <span>${api.name}</span>
+                    <span class="api-status ${api.status}">${api.status === 'ready' ? '已配置' : '待配置'}</span>
+                </div>
+            `).join('');
+
+            // 组合所有内容
+            document.getElementById('content').innerHTML = `
+                <div class="card">
+                    <div class="card-title">
+                        <span>🔄 每日例行工作</span>
+                        <span class="count">${data.routine.length}次/天</span>
+                    </div>
+                    <div class="task-list">
+                        ${routineHtml}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <span>📋 今日任务</span>
+                        <span class="count">${data.todayTasks.length}项</span>
+                    </div>
+                    <div class="task-list">
+                        ${todayTasksHtml}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <span>📅 明日计划</span>
+                        <span class="count">${data.tomorrowTasks.length}项</span>
+                    </div>
+                    <div class="task-list">
+                        ${tomorrowTasksHtml}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <span>🛠️ 技能库</span>
+                        <span class="count">${data.skills.ready}/${data.skills.total} 就绪</span>
+                    </div>
+                    <div class="skill-grid">
+                        ${skillsHtml}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <span>🔑 API配置</span>
+                    </div>
+                    <div class="api-list">
+                        ${apisHtml}
+                    </div>
+                </div>
+            `;
         }
+
+        // 页面加载时执行
+        loadData();
+        
+        // 每30秒自动刷新数据
+        setInterval(loadData, 30000);
+        
+        // 每分钟检查一次是否需要更新日期（跨天时）
+        setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0) {
+                loadData();
+            }
+        }, 60000);
     </script>
 </body>
 </html>

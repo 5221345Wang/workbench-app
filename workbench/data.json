@@ -1,0 +1,71 @@
+{
+  "date": "2026-04-08",
+  "weekday": "周三",
+  "routine": [
+    {
+      "name": "📰 公众号文章发布",
+      "time": "11:00",
+      "done": true
+    },
+    {
+      "name": "📰 公众号文章发布",
+      "time": "18:00",
+      "done": false
+    }
+  ],
+  "todayTasks": [
+    {
+      "name": "装备所有新技能到技能库",
+      "status": "done",
+      "meta": "已完成"
+    },
+    {
+      "name": "开发飞书工作台小组件",
+      "status": "doing",
+      "meta": "进行中"
+    },
+    {
+      "name": "测试小红书MCP发布功能",
+      "status": "todo",
+      "meta": "待开始"
+    },
+    {
+      "name": "发布3篇公众号文章",
+      "status": "done",
+      "meta": "已完成"
+    }
+  ],
+  "tomorrowTasks": [
+    {
+      "name": "申请可灵AI API Key",
+      "priority": "高"
+    },
+    {
+      "name": "批量发布测试视频到多平台",
+      "priority": "高"
+    },
+    {
+      "name": "准备直播脚本模板",
+      "priority": "中"
+    }
+  ],
+  "skills": {
+    "total": 12,
+    "ready": 11,
+    "list": [
+      {"icon": "🎬", "name": "视频生成"},
+      {"icon": "✂️", "name": "短视频"},
+      {"icon": "🔍", "name": "视频抓取"},
+      {"icon": "🚀", "name": "多平台发布"},
+      {"icon": "📕", "name": "小红书"},
+      {"icon": "📰", "name": "公众号"},
+      {"icon": "📝", "name": "脚本规划"},
+      {"icon": "🎙️", "name": "直播助手"}
+    ]
+  },
+  "apis": [
+    {"name": "Tavily搜索", "status": "ready"},
+    {"name": "可灵AI", "status": "pending"},
+    {"name": "即梦", "status": "pending"}
+  ]
+}
