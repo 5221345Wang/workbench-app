@@ -21,16 +21,21 @@
     },
     {
       "name": "开发飞书工作台小组件",
-      "status": "doing",
-      "meta": "进行中"
+      "status": "done",
+      "meta": "已完成"
     },
     {
       "name": "测试小红书MCP发布功能",
-      "status": "todo",
-      "meta": "待开始"
+      "status": "done",
+      "meta": "已完成"
     },
     {
       "name": "发布3篇公众号文章",
+      "status": "done",
+      "meta": "已完成"
+    },
+    {
+      "name": "修复工作台实时数据问题",
       "status": "done",
       "meta": "已完成"
     }

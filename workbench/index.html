@@ -152,7 +152,10 @@
 </head>
 <body>
     <div class="header">
-        <div class="date" id="currentDate">加载中...</div>
+        <div>
+            <div id="greeting" style="font-size: 12px; color: #666; margin-bottom: 2px;">加载中...</div>
+            <div class="date" id="currentDate">加载中...</div>
+        </div>
         <div class="status">运行中</div>
     </div>
 
@@ -182,6 +185,18 @@
         function renderPage(data) {
             const now = new Date();
             const currentHour = now.getHours();
+            
+            // 更新问候语
+            const hour = now.getHours();
+            let greeting = '早上好';
+            if (hour >= 11 && hour < 13) {
+                greeting = '中午好';
+            } else if (hour >= 13 && hour < 18) {
+                greeting = '下午好';
+            } else if (hour >= 18) {
+                greeting = '晚上好';
+            }
+            document.getElementById('greeting').textContent = `${greeting}，老板`;
             
             // 更新日期
             document.getElementById('currentDate').textContent = 
