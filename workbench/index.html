@@ -153,12 +153,12 @@
             <div class="task-item">
                 <div class="task-checkbox" id="routine-am"></div>
                 <span class="task-name">📰 公众号文章发布</span>
-                <span class="task-meta">09:00</span>
+                <span class="task-meta">11:00</span>
             </div>
             <div class="task-item">
                 <div class="task-checkbox" id="routine-pm"></div>
                 <span class="task-name">📰 公众号文章发布</span>
-                <span class="task-meta">15:00</span>
+                <span class="task-meta">18:00</span>
             </div>
         </div>
     </div>
@@ -284,11 +284,11 @@
         const amCheckbox = document.getElementById('routine-am');
         const pmCheckbox = document.getElementById('routine-pm');
         
-        if (hour >= 9) {
+        if (hour >= 11) {
             amCheckbox.classList.add('done');
             amCheckbox.textContent = '✓';
         }
-        if (hour >= 15) {
+        if (hour >= 18) {
             pmCheckbox.classList.add('done');
             pmCheckbox.textContent = '✓';
         }
