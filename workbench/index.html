@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>副总工作台</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f0f1a;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 24px;
+        }
+        .greeting {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .date {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .badge {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .task-checkbox.done {
+            background: #10b981;
+            border-color: #10b981;
+        }
+        .task-name.done {
+            text-decoration: line-through;
+            color: rgba(255,255,255,0.5);
+        }
+        .task-meta {
+            margin-left: auto;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .mini-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .mini-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .mini-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .mini-card-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="greeting" id="greeting">加载中...</div>
+        <div class="title">工作台</div>
+        <div class="date" id="date">加载中...</div>
+    </div>
+
+    <div class="grid">
+        <div class="mini-card">
+            <div class="mini-card-icon">📋</div>
+            <div class="mini-card-title">今日任务</div>
+            <div class="mini-card-desc" id="today-summary">加载中...</div>
+        </div>
+        <div class="mini-card">
+            <div class="mini-card-icon">📅</div>
+            <div class="mini-card-title">明日计划</div>
+            <div class="mini-card-desc" id="tomorrow-summary">加载中...</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">
+            <span>🔄 每日例行工作</span>
+            <span class="badge">2次/天</span>
+        </div>
+        <div id="routine-list">加载中...</div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">
+            <span>📋 今日任务</span>
+            <span class="badge" id="today-badge">0/0</span>
+        </div>
+        <div id="today-list">加载中...</div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hour = now.getHours();
+            
+            // 问候语
+            let greeting = '早上好';
+            if (hour >= 11 && hour < 13) greeting = '中午好';
+            else if (hour >= 13 && hour < 18) greeting = '下午好';
+            else if (hour >= 18) greeting = '晚上好';
+            document.getElementById('greeting').textContent = greeting + '，老板';
+            
+            // 日期
+            const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+            document.getElementById('date').textContent = `${dateStr} ${weekdays[now.getDay()]}`;
+            
+            return { hour, dateStr };
+        }
+
+        function renderData(data, hour) {
+            // 每日例行工作
+            const routineHtml = data.routine.map(item => {
+                const isDone = item.done || (item.time === '11:00' && hour >= 11) || (item.time === '18:00' && hour >= 18);
+                return `
+                    <div class="task-item">
+                        <div class="task-checkbox ${isDone ? 'done' : ''}">${isDone ? '✓' : ''}</div>
+                        <div class="${isDone ? 'task-name done' : 'task-name'}">${item.name}</div>
+                        <div class="task-meta">${item.time}</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('routine-list').innerHTML = routineHtml;
+            
+            // 今日任务
+            const doneCount = data.todayTasks.filter(t => t.status === 'done').length;
+            document.getElementById('today-badge').textContent = `${doneCount}/${data.todayTasks.length}`;
+            document.getElementById('today-summary').textContent = `已完成 ${doneCount} 项`;
+            
+            const todayHtml = data.todayTasks.map(task => `
+                <div class="task-item">
+                    <div class="task-checkbox ${task.status === 'done' ? 'done' : ''}">${task.status === 'done' ? '✓' : ''}</div>
+                    <div class="${task.status === 'done' ? 'task-name done' : 'task-name'}">${task.name}</div>
+                    <div class="task-meta">${task.meta}</div>
+                </div>
+            `).join('');
+            document.getElementById('today-list').innerHTML = todayHtml;
+            
+            // 明日计划
+            document.getElementById('tomorrow-summary').textContent = `${data.tomorrowTasks.length} 项待办`;
+        }
+
+        // 初始化
+        const { hour } = updateTime();
+        
+        // 数据（内嵌，无需外部文件）
+        const data = {
+            routine: [
+                { name: '📰 公众号文章发布', time: '11:00', done: true },
+                { name: '📰 公众号文章发布', time: '18:00', done: false }
+            ],
+            todayTasks: [
+                { name: '装备所有新技能到技能库', status: 'done', meta: '已完成' },
+                { name: '开发飞书工作台小组件', status: 'done', meta: '已完成' },
+                { name: '测试小红书MCP发布功能', status: 'done', meta: '已完成' },
+                { name: '发布3篇公众号文章', status: 'done', meta: '已完成' },
+                { name: '修复工作台实时数据问题', status: 'done', meta: '已完成' }
+            ],
+            tomorrowTasks: [
+                { name: '申请可灵AI API Key', priority: '高' },
+                { name: '批量发布测试视频到多平台', priority: '高' },
+                { name: '准备直播脚本模板', priority: '中' }
+            ]
+        };
+        
+        renderData(data, hour);
+        
+        // 每分钟更新一次时间
+        setInterval(() => {
+            const { hour } = updateTime();
+            renderData(data, hour);
+        }, 60000);
+    </script>
+</body>
+</html>
